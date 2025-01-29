@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from routers import auth
-from db import get_db, data_get_db
+from routers import assessment
+from routers import therapy
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from config import setting
@@ -9,7 +10,7 @@ from config import setting
 app = FastAPI(
     title="Therapeutic Tool For ADHD APIs ",
     docs_url="/",
-    description="Product by Map My Crop",
+    description="Project by Riddhi's Team",
     version="0.0.1",
     swagger_ui_parameters={"defaultModelsExpandDepth": -1},
 )
@@ -44,6 +45,8 @@ app.openapi = custom_openapi
 
 # add multiple routers here ->
 app.include_router(auth.route)
+app.include_router(assessment.route)
+app.include_router(therapy.route)
 
 
 @app.get("/")

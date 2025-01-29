@@ -1,18 +1,19 @@
+import random
 import re
 from fastapi import HTTPException
 from passlib.context import CryptContext
 
+from models import Question
+from schemas import QuestionSchema
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-def secure_pwd(raw_password):
-    hashed = pwd_context.hash(raw_password)
+def hash_password(password: str):
+    return pwd_context.hash(password)
 
-    return hashed
-
-
-def verify_pwd(plain, hash):
-    return pwd_context.verify(plain, hash)
+def verify_password(plain_password: str, hashed_password: str):
+    return pwd_context.verify(plain_password, hashed_password)
 
 
 def validate_password(payload):
@@ -42,3 +43,22 @@ def validate_password(payload):
             status_code=400,
             detail="Password must contain at least one special character (e.g., !, @, #, $, %)",
         )
+
+
+def get_random_questions(db, category=None, limit=10):
+    if category:
+        questions = db.query(Question).filter(Question.category == category).all()
+    else:
+        questions = db.query(Question).all()
+
+    random.shuffle(questions)
+    questions = questions[:limit]
+
+    return [
+        QuestionSchema(
+            id=q.question_id, 
+            question=q.question, 
+            options=[q.option_1, q.option_2, q.option_3, q.option_4]
+        ) 
+        for q in questions
+    ]

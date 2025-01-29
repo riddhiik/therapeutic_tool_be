@@ -25,4 +25,5 @@ code/static/*
 # editor 
 .vscode
 
-code/__pycache__
+code\__pycache__
+__pycache__

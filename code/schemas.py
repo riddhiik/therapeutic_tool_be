@@ -26,6 +26,49 @@ class UserCreate(BaseModel):
     password: str
     phone_number: str
 
+
+class UserUpdate(UserCreate):
+    assessment_score: Optional[float]
+    assessment_date: Optional[date]
+    reassessment_date: Optional[date]
+    reassessment_score: Optional[float]
+
+class UserResponse(UserCreate):
+    assessment_score: Optional[float] = None
+    assessment_date: Optional[date] = None
+    reassessment_date: Optional[date] = None
+    reassessment_score: Optional[float] = None
+
+    class Config:
+        from_attributes = True
+
+
 class login(BaseModel):
     email: EmailStr
     password: str
+
+class QuestionSchema(BaseModel):
+    id: int
+    question: str
+    options: list[str]
+
+class AnswerSchema(BaseModel):
+    questionId: int
+    selectedOption: str
+
+class AssessmentSubmit(BaseModel):
+    userId: int
+    answers: list[AnswerSchema]
+
+class TherapyCreate(BaseModel):
+    user_id: int
+    start_date: date
+    therapy_duration: int
+
+class QuestionCreate(BaseModel):
+    category: str  
+    question: str
+    option_1: str = "Never"
+    option_2: str = "Sometimes"
+    option_3: str = "Often"
+    option_4: str = "Always"

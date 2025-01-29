@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = Path(Path(__file__).resolve().parent) / ".env"
-        print(f'farm.MMC envvvv - {Path(Path(__file__).resolve().name)}')
+        print('The application started successfully 🚀')
 
 
 setting = Settings()
