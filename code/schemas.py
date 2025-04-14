@@ -68,7 +68,7 @@ class TherapyCreate(BaseModel):
 class QuestionCreate(BaseModel):
     category: str  
     question: str
-    option_1: str = "Never"
-    option_2: str = "Sometimes"
-    option_3: str = "Often"
-    option_4: str = "Always"
+    option1: str = "Never"
+    option2: str = "Sometimes"
+    option3: str = "Often"
+    option4: str = "Always"

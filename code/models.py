@@ -59,13 +59,13 @@ class LoginLogs(Base):
 class Question(Base):
     __tablename__ = "assessment"
     
-    question_id = Column(Integer, primary_key=True, autoincrement=True, index=True)  # Set as primary key
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)  # Set as primary key
     category = Column(String(255), index=True)
     question = Column(Text, nullable=False)
-    option_1 = Column(String(255), nullable=False)
-    option_2 = Column(String(255), nullable=False)
-    option_3 = Column(String(255), nullable=False)
-    option_4 = Column(String(255), nullable=False)
+    option1 = Column(String(255), nullable=False)
+    option2 = Column(String(255), nullable=False)
+    option3 = Column(String(255), nullable=False)
+    option4 = Column(String(255), nullable=False)
 
 
 class Therapy(Base):

@@ -45,7 +45,8 @@ def validate_password(payload):
         )
 
 
-def get_random_questions(db, category=None, limit=10):
+def get_random_questions(db, category=None):
+    limit = 25
     if category:
         questions = db.query(Question).filter(Question.category == category).all()
     else:
@@ -56,9 +57,9 @@ def get_random_questions(db, category=None, limit=10):
 
     return [
         QuestionSchema(
-            id=q.question_id, 
+            id=q.id, 
             question=q.question, 
-            options=[q.option_1, q.option_2, q.option_3, q.option_4]
+            options=[q.option1, q.option2, q.option3, q.option4]
         ) 
         for q in questions
     ]
